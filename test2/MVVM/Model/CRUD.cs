@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using test2.MVVM.Model;
 
 namespace test2
 {
@@ -12,7 +13,7 @@ namespace test2
     {
         public static void create(User user)
         {
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=usersDB.db;Version=3;"))
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=../../usersDB.db;Version=3;"))
             {
                 connection.Execute("INSERT INTO users (phone, email, password) VALUES (@phone, @email, @password)", user);
             }
@@ -20,7 +21,7 @@ namespace test2
 
         public static User read(User user)
         {
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=usersDB.db;Version=3;"))
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=../../usersDB.db;Version=3;"))
             {
                 var output = connection.Query<User>("SELECT * FROM users WHERE phone = @phone and password = @password",user);
                 List<User> list = output.ToList();
@@ -31,7 +32,7 @@ namespace test2
 
         public static User readById(int id)
         {
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=usersDB.db;Version=3;"))
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=../../usersDB.db;Version=3;"))
             {
                 var output = connection.Query<User>("SELECT * FROM users WHERE id = "+id, new DynamicParameters());
                 List<User> list = output.ToList();
